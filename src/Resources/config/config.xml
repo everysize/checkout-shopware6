@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>API Account</title>
+        <input-field>
+            <name>clientId</name>
+            <label>Everysize Checkout API ClientId</label>
+            <label lang="de-DE">Everysize Checkout API ClientId</label>
+            <required>true</required>
+            <copyable>true</copyable>
+        </input-field>
+        <input-field type="password">
+            <name>clientSecret</name>
+            <label>Everysize Checkout API ClientSecret</label>
+            <label lang="de-DE">Everysize Checkout API ClientSecret</label>
+            <required>true</required>
+            <copyable>true</copyable>
+        </input-field>
+        <component name="everysize-api-test-button">
+            <name>apiTest</name>
+            <label>API Verbindung testen</label>
+        </component>
+    </card>
+
+    <card>
+        <title>Order Export Mapping</title>
+        <title lang="de-DE">Bestellungen - Export Zuweisungen</title>
+        <component name="everysize-order-state-select">
+            <name>orderComplete</name>
+            <entity>state_machine_state</entity>
+            <label>Orderstate for completed orders</label>
+            <label lang="de-DE">Bestellstatus für abgeschlossene Bestellungen</label>
+        </component>
+        <component name="everysize-order-state-select">
+            <name>orderCancel</name>
+            <entity>state_machine_state</entity>
+            <label>Orderstate for canceled orders</label>
+            <label lang="de-DE">Bestellstatus für stornierte Bestellungen</label>
+        </component>
+        <component name="everysize-delivery-state-select">
+            <name>orderReturn</name>
+            <entity>state_machine_state</entity>
+            <label>Deliverystate for returned orders</label>
+            <label lang="de-DE">Versandstatus für retournierte Bestellungen</label>
+        </component>
+        <input-field type="single-select">
+            <name>carrier</name>
+            <label>Carrier</label>
+            <label lang="de-DE">Versanddienstleister</label>
+            <required>true</required>
+            <defaultValue>DHL</defaultValue>
+            <options>
+                <option>
+                    <id>Cargo</id>
+                    <name>Cargo</name>
+                    <name lang="de-DE">Cargo</name>
+                </option>
+                <option>
+                    <id>Der Courier</id>
+                    <name>Der Courier</name>
+                    <name lang="de-DE">Der Courier</name>
+                </option>
+                <option>
+                    <id>Deutsche Post</id>
+                    <name>Deutsche Post</name>
+                    <name lang="de-DE">Deutsche Post</name>
+                </option>
+                <option>
+                    <id>DHL</id>
+                    <name>DHL</name>
+                    <name lang="de-DE">DHL</name>
+                </option>
+                <option>
+                    <id>DPD</id>
+                    <name>DPD</name>
+                    <name lang="de-DE">DPD</name>
+                </option>
+                <option>
+                    <id>eparcel</id>
+                    <name>eParcel</name>
+                    <name lang="de-DE">eParcel</name>
+                </option>
+                <option>
+                    <id>FedEx</id>
+                    <name>FedEx</name>
+                    <name lang="de-DE">FedEx</name>
+                </option>
+                <option>
+                    <id>GdSK</id>
+                    <name>GdSK</name>
+                    <name lang="de-DE">GdSK</name>
+                </option>
+                <option>
+                    <id>GLS</id>
+                    <name>GLS</name>
+                    <name lang="de-DE">GLS</name>
+                </option>
+                <option>
+                    <id>GO!</id>
+                    <name>GO!</name>
+                    <name lang="de-DE">GO!</name>
+                </option>
+                <option>
+                    <id>Hermes</id>
+                    <name>Hermes</name>
+                    <name lang="de-DE">Hermes</name>
+                </option>
+                <option>
+                    <id>iloxx</id>
+                    <name>iloxx</name>
+                    <name lang="de-DE">iloxx</name>
+                </option>
+                <option>
+                    <id>Midway</id>
+                    <name>Midway</name>
+                    <name lang="de-DE">Midway</name>
+                </option>
+                <option>
+                    <id>Noxxs Logistic</id>
+                    <name>Noxxs Logistic</name>
+                    <name lang="de-DE">Noxxs Logistic</name>
+                </option>
+                <option>
+                    <id>paket.ag</id>
+                    <name>paket.ag</name>
+                    <name lang="de-DE">paket.ag</name>
+                </option>
+                <option>
+                    <id>primeMail</id>
+                    <name>primeMail</name>
+                    <name lang="de-DE">primeMail</name>
+                </option>
+                <option>
+                    <id>TOMBA</id>
+                    <name>TOMBA</name>
+                    <name lang="de-DE">TOMBA</name>
+                </option>
+                <option>
+                    <id>UPS</id>
+                    <name>UPS</name>
+                    <name lang="de-DE">UPS</name>
+                </option>
+            </options>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Order Import Mapping</title>
+        <title lang="de-DE">Bestellungen - Import Zuweisungen</title>
+        <component name="everysize-order-state-select">
+            <name>orderState</name>
+            <entity>state_machine_state</entity>
+            <label>Orderstate for imported orders</label>
+            <label lang="de-DE">Bestellstatus für importierte Bestellungen</label>
+        </component>
+        <component name="everysize-payment-state-select">
+            <name>paymentState</name>
+            <entity>state_machine_state</entity>
+            <label>Paymentstate for imported orders</label>
+            <label lang="de-DE">Zahlungsstatus für importierte Bestellungen</label>
+        </component>
+        <component name="everysize-delivery-state-select">
+            <name>deliveryState</name>
+            <entity>state_machine_state</entity>
+            <label>Deliverystate for imported orders</label>
+            <label lang="de-DE">Versandstatus für importierte Bestellungen</label>
+        </component>
+        <component name="sw-entity-single-select">
+            <name>paypal</name>
+            <entity>payment_method</entity>
+            <label>Paypal payment type for imported orders</label>
+            <label lang="de-DE">Paypal Zahlunsgsart für importierte Bestellungen</label>
+        </component>
+        <component name="sw-entity-single-select">
+            <name>dispatch</name>
+            <entity>shipping_method</entity>
+            <label>Choose postal dispatch type for imported orders</label>
+            <label lang="de-DE">Paket Versandart wählen für importierte Bestellungen</label>
+        </component>
+        <component name="sw-entity-single-select">
+            <name>defaultCustomerGroup</name>
+            <entity>customer_group</entity>
+            <label>Default customergroup</label>
+            <label lang="de-DE">Standard Kundengruppe</label>
+        </component>
+        <component name="sw-entity-single-select">
+            <name>fallbackLanguage</name>
+            <entity>language</entity>
+            <label>Choose fallback language for headless channels</label>
+            <label lang="de-DE">Fallback Sprache für Headless Channels wählen</label>
+        </component>
+        <component name="sw-entity-single-select">
+            <name>importSalesChannel</name>
+            <entity>sales_channel</entity>
+            <label>Sales channel for imported orders</label>
+            <label lang="de-DE">Verkaufskanal für importierte Bestellungen</label>
+            <helpText>Empty: every sales channel with access data imports orders. If several channels share the same access data (e.g. only set in "All sales channels"), an order lands in the channel processed first. Set: orders for these access data are only imported into this sales channel; it must use the same access data.</helpText>
+            <helpText lang="de-DE">Leer: Jeder Verkaufskanal mit Zugangsdaten importiert Bestellungen. Teilen sich mehrere Kanäle dieselben Zugangsdaten (z. B. nur unter „Alle Verkaufskanäle“ eingetragen), landet eine Bestellung im zuerst abgearbeiteten Kanal. Gesetzt: Bestellungen zu diesen Zugangsdaten werden nur in diesen Verkaufskanal importiert; er muss dieselben Zugangsdaten verwenden.</helpText>
+        </component>
+    </card>
+
+    <card>
+        <title>Customization</title>
+        <title lang="de-DE">Anpassungen</title>
+        <input-field type="bool">
+            <name>sendMail</name>
+            <label>Send confirmation mail</label>
+            <label lang="de-DE">Bestellbestätigungs Mail senden</label>
+            <defaultValue>0</defaultValue>
+        </input-field>
+        <input-field type="bool">
+            <name>deactivateScheduledTask</name>
+            <label>Deactivate scheduled task</label>
+            <label lang="de-DE">Deaktiviere geplante Aufgaben</label>
+            <defaultValue>0</defaultValue>
+        </input-field>
+    </card>
+</config>

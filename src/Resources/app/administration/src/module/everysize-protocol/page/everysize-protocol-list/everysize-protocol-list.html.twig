@@ -1,0 +1,43 @@
+<sw-page class="everysize-protocol-list">
+    <template #content>
+        <sw-entity-listing
+            v-if="protocolRows"
+            :items="protocolRows"
+            :repository="repository"
+            :columns="columns"
+            :isLoading="isLoading"
+            :showActions="true"
+            :showSelection="false"
+            :showSettings="false"
+            :allowEdit="false"
+            :allowInlineEdit="false"
+            :allowDelete="false"
+        >
+            <template #column-createdAt="{ item }">
+                {{ dateFilter(item.createdAt, { hour: '2-digit', minute: '2-digit' }) }} Uhr
+            </template>
+            <template #column-title="{ item }">
+                {{ item.title }}
+            </template>
+            <template #column-state="{ item }">
+                <template v-if="item.state">
+                    {{ $t('everysize-protocol.list.state-success') }}
+                </template>
+                <template v-else>
+                    {{ $t('everysize-protocol.list.state-fail') }}
+                </template>
+            </template>
+            <template #column-details="{ item }">
+                <template v-if="item.message">
+                    <sw-label variant="danger" size="default" appearance="default" :ghost="true" :caps="false" :dismissable="false">
+                        {% verbatim %}
+                        <pre>{{ item.message }}</pre>
+                        {% endverbatim %}
+                    </sw-label>
+                </template>
+            </template>
+        </sw-entity-listing>
+
+        <sw-loader v-if="isLoading"></sw-loader>
+    </template>
+</sw-page>

@@ -1,0 +1,81 @@
+{
+    "everysize-payment": {
+        "general": {
+            "title": "Zahlungen",
+            "descriptionTextModule": "Verwaltung von PayPal Zahlungen via Everysize"
+        }
+    },
+    "everysize-api-test-button": {
+        "title": "API Test",
+        "success": "Verbindung wurde erfolgreich getestet",
+        "error": "Verbindung konnte nicht hergestellt werden. Bitte prüfen Sie Ihre Zugangsdaten"
+    },
+    "everysize-admin-order-details-warning": {
+        "title": "Diese Bestellung wurde via everysize Checkout importiert - die Zahlung erfolgte bereits via Paypal.",
+        "message": "Status-Änderungen (abgeschlossen, abgebrochen oder retourniert) sowie die Versanddetails werden automatisch an everysize übermittelt. Erstatten Sie über den Reiter „everysize“ (über Ihr PayPal-Plugin, auf das PayPal-Konto der Kundin) oder direkt in Ihrem PayPal-Konto. Die Bestellung kann auch über das <a href=\"https://business.everysize.com/orders/{ezOrderId}\" target=\"_blank\" rel=\"noopener\">everysize Business-Backend</a> eingesehen werden. Die Bestell ID lautet: <strong>{ezOrderId}</strong>",
+        "originalEmail": "Original-E-Mail der Kundin (nur zur Info; Shop-Mails gehen an die everysize-Weiterleitungsadresse)"
+    },
+    "everysize-order-tab": {
+        "tabTitle": "everysize",
+        "order": {
+            "title": "everysize-Bestellung",
+            "notFound": "Zu dieser Bestellung gibt es keine everysize-Zuordnung.",
+            "everysizeOrderId": "everysize-Bestellnummer",
+            "importedAt": "Importiert",
+            "orderNumberReportedAt": "Bestellnummer an everysize gemeldet",
+            "captureId": "PayPal-Transaktion (Capture-ID)",
+            "originalEmail": "Original-E-Mail der Kundin",
+            "originalEmailHint": "nur zur Information – Mails des Shops gehen an die everysize-Weiterleitungsadresse"
+        },
+        "refund": {
+            "title": "Erstattung",
+            "loadError": "Die Erstattungen konnten nicht von everysize geladen werden:",
+            "paid": "Bezahlt",
+            "refunded": "erstattet",
+            "open": "noch offen",
+            "amount": "Betrag",
+            "button": "Erstatten",
+            "confirmTitle": "Erstatten",
+            "confirmText": "{amount} an die Kundin erstatten? Das lässt sich nicht rückgängig machen.",
+            "success": "Die Erstattung wurde über everysize bei PayPal ausgeführt.",
+            "notice": "Erstatten Sie hier ganz oder teilweise: everysize erstattet über PayPal auf das Konto, mit dem die Kundin bezahlt hat, und weiß damit sofort davon. Der Zahlungsstatus wird „Erstattet“ bzw. „Teilweise erstattet“. Die Liste kommt von PayPal und enthält auch Erstattungen, die Sie direkt in Ihrem PayPal-Konto gemacht haben. Ein Storno oder eine Retoure melden Sie über den Bestell- bzw. Versandstatus – das bewegt kein Geld.",
+            "columns": {
+                "date": "Datum",
+                "amount": "Erstatteter Betrag",
+                "status": "Status der Erstattung",
+                "refundId": "Erstattungs-ID"
+            },
+            "alreadyRefunded": "Die Zahlung ist bei PayPal bereits vollständig erstattet.",
+            "errors": {
+                "ORDER_NOT_PAID_USING_EVERYSIZE_CHECKOUT_PAYMENTS": "Für diese Bestellung ist keine Erstattung über everysize möglich.",
+                "REFUND_AMOUNT_INVALID": "everysize hat den Betrag abgelehnt, z. B. weil er höher ist als der noch nicht erstattete Betrag.",
+                "PAYPAL_REFUND_FAILED": "PayPal hat die Erstattung abgelehnt.",
+                "PAYPAL_REQUEST_FAILED": "PayPal hat nicht geantwortet. Bitte später noch einmal versuchen.",
+                "IDEMPOTENCY_KEY_REQUIRED": "Bitte die Seite neu laden und noch einmal versuchen.",
+                "NOT_AN_EVERYSIZE_ORDER": "Diese Bestellung kommt nicht von everysize."
+            }
+        },
+        "reports": {
+            "title": "Rückmeldungen an everysize",
+            "none": "Noch keine.",
+            "columns": {
+                "time": "Zeit",
+                "kind": "Meldung",
+                "item": "Artikel / Sendungsnummer",
+                "reason": "Grund",
+                "result": "Ergebnis"
+            },
+            "kinds": {
+                "fulfillment": "Versand",
+                "tracking": "Sendungsnummer",
+                "cancel": "Storno",
+                "retour": "Retoure"
+            },
+            "results": {
+                "sent": "gemeldet",
+                "skipped": "übersprungen",
+                "present": "bekannt"
+            }
+        }
+    }
+}

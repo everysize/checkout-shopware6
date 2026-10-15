@@ -1,0 +1,81 @@
+{
+    "everysize-payment": {
+        "general": {
+            "title": "Payments",
+            "descriptionTextModule": "Manage Everysize payments here"
+        }
+    },
+    "everysize-api-test-button": {
+        "title": "API Test",
+        "success": "Connection was successfully tested",
+        "error": "Connection could not be established. Please check your access data"
+    },
+    "everysize-admin-order-details-warning": {
+        "title": "This order was imported via everysize Checkout - the payment was already made via Paypal.",
+        "message": "Status changes (completed, canceled or returned) as well as shipping details are automatically sent to everysize. Refund in the tab \"everysize\" (through your PayPal plugin, to the customer's PayPal account) or directly in your PayPal account. The order can also be viewed directly through the <a href=\"https://business.everysize.com/orders/{ezOrderId}\" target=\"_blank\" rel=\"noopener\">everysize Business-Backend</a>. Order ID: <strong>{ezOrderId}</strong>",
+        "originalEmail": "Customer's original e-mail (for your information only; shop mails go to the everysize forwarding address)"
+    },
+    "everysize-order-tab": {
+        "tabTitle": "everysize",
+        "order": {
+            "title": "everysize order",
+            "notFound": "There is no everysize assignment for this order.",
+            "everysizeOrderId": "everysize order number",
+            "importedAt": "Imported",
+            "orderNumberReportedAt": "Order number reported to everysize",
+            "captureId": "PayPal transaction (capture ID)",
+            "originalEmail": "Customer's original e-mail",
+            "originalEmailHint": "for your information only – shop mails go to the everysize forwarding address"
+        },
+        "refund": {
+            "title": "Refund",
+            "loadError": "The refunds could not be loaded from everysize:",
+            "paid": "Paid",
+            "refunded": "refunded",
+            "open": "still open",
+            "amount": "Amount",
+            "button": "Refund",
+            "confirmTitle": "Refund",
+            "confirmText": "Refund {amount} to the customer? This cannot be undone.",
+            "success": "The refund was made at PayPal through everysize.",
+            "notice": "Refund here, in full or in part: everysize refunds through PayPal to the account the customer paid with and so knows of it at once. The payment status becomes \"Refunded\" or \"Partially refunded\". The list comes from PayPal and also shows refunds you made directly in your PayPal account. Report a cancellation or return with the order or delivery status – that moves no money.",
+            "columns": {
+                "date": "Date",
+                "amount": "Refunded amount",
+                "status": "Refund status",
+                "refundId": "Refund ID"
+            },
+            "alreadyRefunded": "The payment is already refunded completely at PayPal.",
+            "errors": {
+                "ORDER_NOT_PAID_USING_EVERYSIZE_CHECKOUT_PAYMENTS": "No refund through everysize is possible for this order.",
+                "REFUND_AMOUNT_INVALID": "everysize rejected the amount, e.g. because it is higher than the amount not yet refunded.",
+                "PAYPAL_REFUND_FAILED": "PayPal rejected the refund.",
+                "PAYPAL_REQUEST_FAILED": "PayPal did not answer. Please try again later.",
+                "IDEMPOTENCY_KEY_REQUIRED": "Please reload the page and try again.",
+                "NOT_AN_EVERYSIZE_ORDER": "This order does not come from everysize."
+            }
+        },
+        "reports": {
+            "title": "Reports to everysize",
+            "none": "None yet.",
+            "columns": {
+                "time": "Time",
+                "kind": "Report",
+                "item": "Item / tracking code",
+                "reason": "Reason",
+                "result": "Result"
+            },
+            "kinds": {
+                "fulfillment": "Shipping",
+                "tracking": "Tracking code",
+                "cancel": "Cancellation",
+                "retour": "Return"
+            },
+            "results": {
+                "sent": "reported",
+                "skipped": "skipped",
+                "present": "known"
+            }
+        }
+    }
+}

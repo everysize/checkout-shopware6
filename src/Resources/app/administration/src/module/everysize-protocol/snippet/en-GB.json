@@ -1,0 +1,17 @@
+{
+    "everysize-protocol": {
+        "general": {
+            "name": "Everysize Protocol",
+            "menu-item-name": "Everysize Protocol",
+            "menu-item-description": "View everysize checkout logs"
+        },
+        "list": {
+            "column-created-at": "Date",
+            "column-title": "Description",
+            "column-state": "Status",
+            "column-details": "Details",
+            "state-success": "Success",
+            "state-fail": "Failure"
+        }
+    }
+}

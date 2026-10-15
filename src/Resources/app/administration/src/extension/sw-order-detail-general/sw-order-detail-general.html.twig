@@ -1,0 +1,12 @@
+{% block sw_order_detail_general_info_card %}
+    <sw-alert variant="warning" class="sw-card" v-if="order.customFields.everysize_id">
+        <p>{{ $t('everysize-admin-order-details-warning.title') }}</p>
+        <span v-html="$t('everysize-admin-order-details-warning.message', { ezOrderId: order.customFields.everysize_id })"></span>
+        <p v-if="everysizeOriginalEmail">
+            {{ $t('everysize-admin-order-details-warning.originalEmail') }}:
+            <strong>{{ everysizeOriginalEmail }}</strong>
+        </p>
+    </sw-alert>
+
+    {% parent %}
+{% endblock %}

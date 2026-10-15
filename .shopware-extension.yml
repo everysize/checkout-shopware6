@@ -1,0 +1,26 @@
+# Build und ZIP mit shopware-cli (`extension build` / `extension zip`), siehe INTERN.md "Release".
+# Verhalten von shopware-cli festschreiben (Default der Version 0.19.1).
+compatibility_date: "2026-02-11"
+build:
+  zip:
+    assets:
+      enabled: true
+      # Admin-Code per esbuild: shopware-cli schreibt die JS-Datei ungehasht
+      # nach administration/js/ (liest Shopware 6.6) und gehasht mit
+      # Vite-Manifest nach administration/.vite/ (liest Shopware 6.7).
+      # Ein Build für beide Versionen.
+      enable_es_build_for_admin: true
+    composer:
+      # Keine eigenen Abhängigkeiten; shopware/core bringt der Shop mit.
+      enabled: false
+    pack:
+      # Never in the ZIP (also export-ignore in .gitattributes): internal
+      # notes, Store texts, tooling. Check the unpacked ZIP with bin/check-public.sh.
+      excludes:
+        paths:
+          - .php-cs-fixer.dist.php
+          - .gitattributes
+          - INTERN.md
+          - AGENTS.md
+          - docs
+          - bin

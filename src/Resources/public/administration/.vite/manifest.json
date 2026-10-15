@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "js/everysize-checkout-WVXZFD3X.js",
+    "name": "everysize-checkout",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "css/everysize-checkout-GE7IMM6G.css"
+    ]
+  }
+}

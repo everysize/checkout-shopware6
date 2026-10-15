@@ -1,0 +1,16 @@
+{% block sw_order_detail_content_tabs_general %}
+    {% parent %}
+
+    <sw-tabs-item v-if="isEverysizePayment"
+                  :route="{ name: 'everysize.payment.detail', params: { id: $route.params.id } }"
+                  :title="$t('everysize-order-tab.tabTitle')">
+        {{ $t('everysize-order-tab.tabTitle') }}
+    </sw-tabs-item>
+{% endblock %}
+
+
+{% block sw_order_detail_actions_slot_smart_bar_actions %}
+    <template v-if="isEditableEverySizeOrder">
+        {% parent %}
+    </template>
+{% endblock %}

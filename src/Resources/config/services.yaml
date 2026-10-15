@@ -1,0 +1,188 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/symfony/dependency-injection/7.4/Loader/schema/services.schema.json
+services:
+    _defaults:
+        public: true
+
+    Everysize\Checkout\Task\OrderImportTask:
+        tags:
+            - shopware.scheduled.task
+
+    Everysize\Checkout\Task\OrderImportTaskHandler:
+        arguments:
+            - '@scheduled_task.repository'
+            - '@Everysize\Checkout\Service\CronjobService'
+            - '@Everysize\Checkout\Dbal\DataPersister'
+            - '@monolog.logger.everysize'
+        tags:
+            - messenger.message_handler
+
+    Everysize\Checkout\Task\OrderStatusExportTask:
+        tags:
+            - shopware.scheduled.task
+
+    Everysize\Checkout\Task\OrderStatusExportTaskHandler:
+        arguments:
+            - '@scheduled_task.repository'
+            - '@Everysize\Checkout\Service\CronjobService'
+            - '@Everysize\Checkout\Dbal\DataPersister'
+            - '@monolog.logger.everysize'
+        tags:
+            - messenger.message_handler
+
+    Everysize\Checkout\Task\LogCleanupTask:
+        tags:
+            - shopware.scheduled.task
+
+    Everysize\Checkout\Task\LogCleanupTaskHandler:
+        arguments:
+            - '@scheduled_task.repository'
+            - '@Doctrine\DBAL\Connection'
+            - '@Everysize\Checkout\Dbal\DataPersister'
+            - '@monolog.logger.everysize'
+        tags:
+            - messenger.message_handler
+
+    Everysize\Checkout\Controller\Api\EverysizeApiController:
+        public: true
+        arguments:
+            - '@Everysize\Checkout\Service\ClientService'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    Everysize\Checkout\Controller\Api\EverysizeOrderApiController:
+        public: true
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    Everysize\Checkout\Controller\Api\EverysizeRefundApiController:
+        public: true
+        arguments:
+            - '@Everysize\Checkout\Service\ClientService'
+            - '@Everysize\Checkout\Service\ConfigProvider'
+            - '@Doctrine\DBAL\Connection'
+            - '@order.repository'
+            - '@Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler'
+            - '@monolog.logger.everysize'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    Everysize\Checkout\Command\ImportOrders:
+        arguments:
+            - '@Everysize\Checkout\Service\CronjobService'
+        tags:
+            - console.command
+
+    Everysize\Checkout\Command\ExportOrders:
+        arguments:
+            - '@Everysize\Checkout\Service\CronjobService'
+        tags:
+            - console.command
+
+    Everysize\Checkout\Command\RecoverOrders:
+        arguments:
+            - '@Everysize\Checkout\Service\MappingRecoveryService'
+            - '@Everysize\Checkout\Service\ConfigProvider'
+            - '@Everysize\Checkout\Dbal\DataProvider'
+        tags:
+            - console.command
+
+    Everysize\Checkout\Dbal\Entity\Checkout\EverysizeOrderDefinition:
+        tags:
+            - {name: shopware.entity.definition, entity: everysize_checkout_order}
+
+    Everysize\Checkout\Dbal\Entity\Status\EverysizeOrderLineItemStatusDefinition:
+        tags:
+            - {name: shopware.entity.definition, entity: everysize_checkout_order_line_item_status}
+
+    Everysize\Checkout\Dbal\Entity\Protocol\EverysizeProtocolDefinition:
+        tags:
+            - {name: shopware.entity.definition, entity: everysize_checkout_protocol}
+
+    Everysize\Checkout\Subscriber\OrderEventSubscriber:
+        arguments:
+            - '@Everysize\Checkout\Dbal\DataProvider'
+        tags:
+            - kernel.event_subscriber
+
+    Everysize\Checkout\Subscriber\LegacyPluginSubscriber:
+        tags:
+            - kernel.event_subscriber
+
+    Everysize\Checkout\Everysize\Client:
+        arguments:
+            - '@Everysize\Checkout\Dbal\DataProvider'
+            - '%env(default::EVERYSIZE_CHECKOUT_API_URL)%'
+
+    Everysize\Checkout\Service\ConfigProvider:
+        arguments:
+            - '@Shopware\Core\System\SystemConfig\SystemConfigService'
+
+    Everysize\Checkout\Service\ClientService:
+        arguments:
+            - '@Everysize\Checkout\Everysize\Client'
+            - '@Everysize\Checkout\Service\ConfigProvider'
+            - '@monolog.logger.everysize'
+            - '@cache.object'
+
+    Everysize\Checkout\Dbal\DataProvider:
+        arguments:
+            - '@country.repository'
+            - '@product.repository'
+            - '@shipping_method.repository'
+            - '@sales_channel.repository'
+            - '@everysize_checkout_order.repository'
+            - '@order.repository'
+            - '@plugin.repository'
+            - '@currency.repository'
+            - '@salutation.repository'
+
+    Everysize\Checkout\Dbal\DataPersister:
+        arguments:
+            - '@customer.repository'
+            - '@order.repository'
+            - '@everysize_checkout_order.repository'
+            - '@everysize_checkout_order_line_item_status.repository'
+            - '@everysize_checkout_protocol.repository'
+
+    Everysize\Checkout\Service\CronjobService:
+        arguments:
+            - '@Everysize\Checkout\Service\ConfigProvider'
+            - '@Everysize\Checkout\Service\ClientService'
+            - '@Everysize\Checkout\Service\OrderImportService'
+            - '@Everysize\Checkout\Service\OrderExportService'
+            - '@Everysize\Checkout\Dbal\DataProvider'
+            - '@Everysize\Checkout\Dbal\DataPersister'
+            - '@Doctrine\DBAL\Connection'
+            - '@monolog.logger.everysize'
+            - '@Everysize\Checkout\Service\MappingRecoveryService'
+            - '@Everysize\Checkout\Service\TrackingCodeService'
+
+    Everysize\Checkout\Service\TrackingCodeService:
+        arguments:
+            - '@Doctrine\DBAL\Connection'
+
+    Everysize\Checkout\Service\MappingRecoveryService:
+        arguments:
+            - '@Everysize\Checkout\Service\ConfigProvider'
+            - '@Everysize\Checkout\Service\ClientService'
+            - '@Everysize\Checkout\Everysize\Client'
+            - '@Doctrine\DBAL\Connection'
+            - '@Shopware\Core\System\SystemConfig\SystemConfigService'
+
+    Everysize\Checkout\Service\OrderImportService:
+        arguments:
+            - '@Everysize\Checkout\Dbal\DataProvider'
+            - '@Everysize\Checkout\Dbal\DataPersister'
+            - '@Shopware\Core\System\NumberRange\ValueGenerator\NumberRangeValueGeneratorInterface'
+            - '@event_dispatcher'
+            - '@Shopware\Core\Checkout\Cart\CartRuleLoader'
+            - '@monolog.logger.everysize'
+            - '@Shopware\Core\System\SalesChannel\Context\SalesChannelContextFactory'
+            - '@Doctrine\DBAL\Connection'
+            - '@Shopware\Core\Checkout\Cart\Price\CashRounding'
+
+    Everysize\Checkout\Service\OrderExportService:
+        arguments:
+            - '@Everysize\Checkout\Dbal\DataPersister'

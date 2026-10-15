@@ -1,0 +1,139 @@
+{% block everysize_payment_detail %}
+    <div class="everysize-payment-detail">
+        <sw-loader v-if="isLoading"></sw-loader>
+
+        <template v-else>
+            {% block everysize_payment_detail_order %}
+                <sw-card position-identifier="everysize-order-tab-order"
+                         :title="$t('everysize-order-tab.order.title')">
+                    <p v-if="!everysizeOrder" class="everysize-payment-detail__empty">
+                        {{ $t('everysize-order-tab.order.notFound') }}
+                    </p>
+                    <table v-else class="everysize-payment-detail__info">
+                        <tbody>
+                            <tr>
+                                <th>{{ $t('everysize-order-tab.order.everysizeOrderId') }}</th>
+                                <td><strong>{{ everysizeOrder.everysizeOrderId }}</strong></td>
+                            </tr>
+                            <tr>
+                                <th>{{ $t('everysize-order-tab.order.importedAt') }}</th>
+                                <td>{{ formatDateTime(everysizeOrder.importedAt) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ $t('everysize-order-tab.order.orderNumberReportedAt') }}</th>
+                                <td>{{ formatDateTime(everysizeOrder.orderNumberReportedAt) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ $t('everysize-order-tab.order.captureId') }}</th>
+                                <td>{{ captureId || '–' }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ $t('everysize-order-tab.order.originalEmail') }}</th>
+                                <td>
+                                    {{ everysizeOrder.originalEmail || '–' }}
+                                    <span class="everysize-payment-detail__hint">
+                                        {{ $t('everysize-order-tab.order.originalEmailHint') }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </sw-card>
+            {% endblock %}
+
+            {% block everysize_payment_detail_refund %}
+                <sw-card v-if="captureId"
+                         position-identifier="everysize-order-tab-refund"
+                         :title="$t('everysize-order-tab.refund.title')">
+                    <sw-alert v-if="refundError" variant="warning" class="everysize-payment-detail__message">
+                        {{ $t('everysize-order-tab.refund.loadError') }} {{ refundError }}
+                    </sw-alert>
+
+                    <template v-else>
+                        <div class="everysize-payment-detail__totals">
+                            <div class="everysize-payment-detail__total">
+                                <span>{{ $t('everysize-order-tab.refund.paid') }}</span>
+                                <strong>{{ formatMoney(paidAmount) }}</strong>
+                            </div>
+                            <div class="everysize-payment-detail__total">
+                                <span>{{ $t('everysize-order-tab.refund.refunded') }}</span>
+                                <strong>{{ formatMoney(refundedAmount) }}</strong>
+                            </div>
+                            <div class="everysize-payment-detail__total"
+                                 :class="{ 'is--open': openAmount > 0 }">
+                                <span>{{ $t('everysize-order-tab.refund.open') }}</span>
+                                <strong>{{ formatMoney(openAmount) }}</strong>
+                            </div>
+                        </div>
+
+                        <sw-data-grid v-if="refundRows.length"
+                                      class="everysize-payment-detail__grid"
+                                      :dataSource="refundRows"
+                                      :columns="refundColumns"
+                                      :showSelection="false"
+                                      :showActions="false"
+                                      :plainAppearance="true">
+                            <template #column-refundId="{ item }">
+                                <span class="everysize-payment-detail__mono">{{ item.refundId }}</span>
+                            </template>
+                        </sw-data-grid>
+
+                        <div v-if="canRefund" class="everysize-payment-detail__form">
+                            <sw-number-field v-model:value="refundAmount"
+                                             numberType="float"
+                                             :digits="2"
+                                             :min="0"
+                                             :max="openAmount"
+                                             :label="$t('everysize-order-tab.refund.amount')">
+                                <template #suffix>{{ currency }}</template>
+                            </sw-number-field>
+                            <sw-button variant="primary"
+                                       :disabled="!isRefundAmountValid || isRefunding"
+                                       :isLoading="isRefunding"
+                                       @click="showRefundConfirm = true">
+                                {{ $t('everysize-order-tab.refund.button') }}
+                            </sw-button>
+                        </div>
+                    </template>
+
+                    <sw-alert variant="info" class="everysize-payment-detail__message">
+                        {{ $t('everysize-order-tab.refund.notice') }}
+                    </sw-alert>
+                </sw-card>
+            {% endblock %}
+
+            {% block everysize_payment_detail_reports %}
+                <sw-card position-identifier="everysize-order-tab-reports"
+                         :title="$t('everysize-order-tab.reports.title')">
+                    <p v-if="!reportRows.length" class="everysize-payment-detail__empty">
+                        {{ $t('everysize-order-tab.reports.none') }}
+                    </p>
+                    <sw-data-grid v-else
+                                  class="everysize-payment-detail__grid"
+                                  :dataSource="reportRows"
+                                  :columns="reportColumns"
+                                  :showSelection="false"
+                                  :showActions="false"
+                                  :plainAppearance="true">
+                    </sw-data-grid>
+                </sw-card>
+            {% endblock %}
+        </template>
+
+        <sw-modal v-if="showRefundConfirm"
+                  variant="small"
+                  :title="$t('everysize-order-tab.refund.confirmTitle')"
+                  @modal-close="showRefundConfirm = false">
+            <p>{{ $t('everysize-order-tab.refund.confirmText', { amount: formatMoney(refundAmount) }) }}</p>
+
+            <template #modal-footer>
+                <sw-button size="small" @click="showRefundConfirm = false">
+                    {{ $t('global.default.cancel') }}
+                </sw-button>
+                <sw-button variant="primary" size="small" @click="refund">
+                    {{ $t('everysize-order-tab.refund.button') }}
+                </sw-button>
+            </template>
+        </sw-modal>
+    </div>
+{% endblock %}

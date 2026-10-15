@@ -1,0 +1,42 @@
+{
+  "name": "everysize/checkout-shopware6",
+  "description": "everysize Checkout: Bestellungen aus dem everysize-Direktkauf in Shopware 6 / orders from the everysize direct checkout in Shopware 6",
+  "version": "3.1.1",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "everysize GmbH",
+      "homepage": "https://www.everysize.com"
+    }
+  ],
+  "require": {
+    "shopware/core": "~6.6.8 || ~6.7.0"
+  },
+  "extra": {
+    "shopware-plugin-class": "Everysize\\Checkout\\EverysizeCheckout",
+    "plugin-icon": "src/Resources/config/plugin.png",
+    "copyright": "(c) everysize GmbH",
+    "label": {
+      "de-DE": "everysize Checkout",
+      "en-GB": "everysize Checkout"
+    },
+    "description": {
+      "de-DE": "Verbindet Shopware mit dem everysize-Direktkauf: Bestellungen von everysize.com werden importiert, Bestellnummer, Versand, Storno und Retoure gehen automatisch an everysize zurück.",
+      "en-GB": "Connects Shopware to the everysize direct checkout: orders placed on everysize.com are imported, order number, shipping, cancellation and returns are reported back automatically."
+    },
+    "manufacturerLink": {
+      "de-DE": "https://www.everysize.com",
+      "en-GB": "https://www.everysize.com"
+    },
+    "supportLink": {
+      "de-DE": "https://business.everysize.com/shop-integration",
+      "en-GB": "https://business.everysize.com/en/shop-integration"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Everysize\\Checkout\\": "src/"
+    }
+  }
+}
